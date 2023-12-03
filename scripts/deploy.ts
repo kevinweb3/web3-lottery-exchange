@@ -33,13 +33,13 @@ function saveFrontendFiles(
   name: string,
   _contractInfos: { contractAddress: string; }
 ) {
-  const contractsAddressDir = "/../contractInfo";
+  const contractsAddressDir = __dirname + "/../contractInfo";
 
   if (!fs.existsSync(contractsAddressDir)) {
     fs.mkdirSync(contractsAddressDir);
   }
 
-  const path = contractsAddressDir + name + ".json";
+  const path = contractsAddressDir + "/" + name + ".json";
 
   fs.writeFileSync(path, JSON.stringify(_contractInfos, null, 2));
 }

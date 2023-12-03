@@ -32,7 +32,7 @@ export default function Create() {
     }
 
     await toast.promise(
-      new Promise(async (resolve, reject) => {
+      new Promise<void>(async (resolve, reject) => {
         await createJackpot(params)
           .then(async () => {
             onReset()

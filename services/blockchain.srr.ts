@@ -23,17 +23,21 @@ const {
 } = globalActions
 const contractAddress = address.address
 const contractAbi = abi.abi
-let tx, ethereum
-
+let tx, ethereum: object;
+declare global{
+  interface Window {
+    ethereum: object
+  }
+}
 if (typeof window !== 'undefined') {
   ethereum = window.ethereum
 }
 
-const toWei = (num) => ethers.utils.parseEther(num.toString())
+const toWei = (num: number) => ethers.parseEther(num.toString())
 
 const getEthereumContract = async () => {
-  const provider = new ethers.providers.Web3Provider(ethereum)
-  const signer = provider.getSigner()
+  const provider = new ethers.BrowserProvider(ethereum)
+  const signer = await provider.getSigner()
   const contract = new ethers.Contract(contractAddress, contractAbi, signer)
   return contract
 }
@@ -184,5 +188,5 @@ export {
   exportLuckyNumbers,
   buyTicket,
   performDraw,
-  truncate,
+  truncate, getPurchasedNumbers,
 }
